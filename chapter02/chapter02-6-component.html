@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>TodoList-组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--流程梳理：-->
+    <!--1、子组件绑定click事件-->
+    <!--2、子组件向父组件传递参数（emit)-->
+    <!--3、父组件操作数据-->
+
+<div id="app">
+    <div>
+        <input type="text" v-model="inputValue">
+        <button @click="handleBtnClick">提交</button>
+    </div>
+    <ul>
+        <todo-item :content="item"
+                   :index="index"
+                   v-for="(item,index) in list"
+                   @delete="handlerDeleteEvent">
+
+        </todo-item>
+    </ul>
+</div>
+</body>
+
+<script>
+
+    //    全局组件
+    //    Vue.component('TodoItem', {
+    //        props: ['content'],
+    //        template: '<li>{{content}}</li>'
+    //    })
+
+    //局部组件
+    var TodoItem = {
+        props: ['content', 'index'],
+        template: '<li @click="handlerLiClick">{{content}}</li>',
+        methods: {
+            handlerLiClick: function (index) {
+                // alert('click')
+                // 第一个是事件，后面的参数是入参
+                this.$emit('delete', this.index);
+            }
+        }
+    }
+
+    var app = new Vue({
+        el: '#app',
+        components: {
+            TodoItem: TodoItem
+        },
+        data: {
+            list: [],
+            inputValue: ''
+        },
+        methods: {
+            handleBtnClick: function () {
+//                alert('click')
+                this.list.push(this.inputValue)
+                this.inputValue = ''
+            },
+
+            handlerDeleteEvent: function (index) {
+                // alert('delete')
+                // 需要一个索引
+                // this.list = ''
+                // alert(index)
+                // 从索引index开始，删除第二个参数重定义长度的个数
+                this.list.splice(index, 1);
+            }
+        }
+    });
+</script>
+</html>

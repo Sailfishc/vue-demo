@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期函数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="root">
+    <div>{{fullname}}</div>
+</div>
+
+<script>
+    // 模板语法
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            firstname: 'zhang',
+            lastname: 'cheng'
+        },
+
+        computed: {
+            fullname: {
+                get: function () {
+                    return this.firstname + " " + this.lastname;
+                },
+
+                set: function (value) {
+                    console.log(value);
+                    let arr = value.split(' ');
+                    if (arr.length > 1) {
+                        this.firstname = arr[0];
+                        this.lastname = arr[1];
+                    }
+                }
+            }
+        }
+
+    })
+</script>
+
+</body>
+
+</html>

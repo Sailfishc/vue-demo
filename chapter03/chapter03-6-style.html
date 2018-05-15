@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期函数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .isActive {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root">
+    <div @click="divClassClick"
+         :class="[isActive]">
+        Hello World
+    </div>
+    <div @click="divStyleClick"
+         :style="styleObj">
+        Hello World
+    </div>
+    <div @click="divStyleClick2"
+         :style="[styleObj, {fontSize: '20px'
+    }]">
+        Hello World
+    </div>
+</div>
+
+<script>
+    // 模板语法
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            isActive: "",
+            styleObj: {
+                color: "black"
+            }
+
+        },
+        methods: {
+            divClassClick: function () {
+                this.isActive = "isActive"
+            },
+            divStyleClick: function () {
+                this.styleObj.color = "red";
+            },
+            divStyleClick2: function () {
+                this.styleObj.color = "red";
+            }
+
+        },
+    })
+</script>
+
+</body>
+
+</html>

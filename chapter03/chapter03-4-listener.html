@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期函数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="root">
+    <div>{{fullname2}}</div>
+    <div>{{fullname()}}</div>
+</div>
+
+<script>
+    // 模板语法
+
+    var vue = new Vue({
+        el: "#root",
+        data: {
+            firstname: 'zhang',
+            lastname: 'cheng'
+        },
+        //计算属性:有缓存，除非引用的的值发生改变，否则不会再调用
+        // 计算属性的函数名不能和方法名重名，否则会失效：function () { [native code] }
+        computed: {
+            fullname2: function () {
+                return this.firstname + " " + this.lastname;
+            }
+        },
+
+        methods: {
+            fullname: function () {
+                return this.firstname + " " + this.lastname;
+            }
+        },
+
+        // 监听器
+        watch:{
+            firstname:function () {
+                return this.firstname + " " + this.lastname;
+            },
+
+            lastname: function () {
+                return this.firstname + " " + this.lastname;
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

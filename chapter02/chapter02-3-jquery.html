@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TodoList</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script></script>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" id="input">
+    <button id="btn">提交</button>
+    <ul id="list">
+
+    </ul>
+</div>
+</body>
+
+<script>
+    function Page() {
+
+    }
+
+    $.extend(Page.prototype, {
+        init: function () {
+            this.bindEvents()
+        },
+
+        bindEvents: function () {
+            var btn = $('#btn');
+            btn.on('click', $.proxy(this.handleBtnClick, this));
+        },
+
+        handleBtnClick: function () {
+            var inputEle = $("#input");
+            var inputValue = inputEle.val();
+            var ulEle = $("#list");
+            ulEle.append('<li>' + inputValue + '</li>');
+            inputEle.val('');
+        }
+    })
+
+    var page = new Page();
+    page.init();
+</script>
+</html>

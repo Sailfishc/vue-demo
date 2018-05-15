@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期函数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="root">
+    <div>{{message}}</div>
+    <div v-text="message "></div>
+    <div v-html="message "></div>
+    <div v-html="message + ' 😯' "></div>
+</div>
+
+<script>
+    // 模板语法
+
+    var vue = new Vue({
+        el: "#root",
+        data:{
+            message: "Hello world"
+        }
+    })
+</script>
+
+</body>
+
+</html>
