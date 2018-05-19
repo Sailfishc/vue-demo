@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Native事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <!--这种click事件是触发不了Parent事件的-->
+    <!--<child @click="clickHandler"></child>-->
+    <!--.native可以绑定组件到原生事件-->
+    <child @click.native="clickHandler"></child>
+</div>
+
+<script>
+
+    Vue.component('child', {
+        // props:['content'],
+        template: '<div>Hello</div>'
+    })
+
+    var vm = new Vue({
+        el: "#root",
+        data: {},
+        methods: {
+            clickHandler: function () {
+                alert("click")
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue父子组件数据传值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <!--这里  :count中的数据表示一个值（数字类型），如果是 count 则表示是一个字符串，因为:中的数据是一个js表达式-->
+    <counter :count="0" @inc="incHandler"></counter>
+    <counter :count="0" @inc="incHandler"></counter>
+    <div>{{total}}</div>
+</div>
+
+<script>
+
+    // 单向数据流
+    var counter = {
+        //父组件通过props向子组件来传值
+        props: ['count'],
+        template: '<div @click="clickHandler">{{number}}</div>',
+        data: function () {
+            return {
+                number: this.count
+            }
+        },
+        methods:{
+            clickHandler: function () {
+                // alert("click")
+                // 这样是错误的
+                // this.count++;
+                let step = 2;
+                this.number += step;
+                this.$emit('inc', step);
+            }
+        }
+    }
+
+    var vm = new Vue({
+        el: "#root",
+        components:{
+            counter: counter
+        },
+        data: {
+            count: 0,
+            total: 0
+        },
+        methods:{
+            incHandler:function (step) {
+                this.total += step;
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

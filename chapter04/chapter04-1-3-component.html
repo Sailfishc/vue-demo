@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue模板-Ref</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .isActive {
+            color: red;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div id="root">
+    <count ref='one' @change="handlerChange"></count>
+    <count ref='two' @change="handlerChange"></count>
+    <div>{{total}}</div>
+</div>
+
+<script>
+
+    // Ref定义在Div这种标签上表示标签对应的DOM元素
+    // Ref定义在组件中表示一个子组件的应用，例如这里获取到的是count的引用
+
+    Vue.component('count', {
+        template: '<div @click="handleClick">{{number}}</div>',
+        data: function () {
+            // 必须return一个对象
+            return {
+                number: 0
+            }
+        },
+        methods: {
+            handleClick: function () {
+                // alert(this.number);
+                this.number++;
+                this.$emit('change');
+            }
+        }
+    })
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            total: 0
+        },
+        methods: {
+            handlerChange: function () {
+                // alert('change')
+                // console.log(this.$refs.one);
+                // console.log(this.$refs.two);
+                this.total = this.$refs.one.number + this.$refs.two.number;
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

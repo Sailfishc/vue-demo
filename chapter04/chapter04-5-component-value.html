@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 非父子组件传值（Bus/总线，发布订阅模式，观察者模式）</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <child content="Sailfish"></child>
+    <child content="orange"></child>
+</div>
+
+<script>
+
+    // TODO：有问题，还没解决
+    // 总线
+    Vue.prototype.bus = new Vue();
+
+    Vue.component('child', {
+        data: function () {
+            return {
+                selfContent: this.content
+            }
+        },
+        props: ['content'],
+        template: '<div @click="clickHandler">{{selfContent}}</div>',
+        methods: {
+            clickHandler: function () {
+                // console.log(this.content);
+                //向bus事件发布change事件
+                this.bus.$emit('change', this.selfContent)
+            }
+        },
+        mounted: function () {
+            this.bus.$on('change', function (msg) {
+                // console.log('mounted:', msg)
+                // 会alert两次：因为有2个child组件，这两个组件都在监听事件，所以会弹2次
+                // alert('mounted:' + msg);
+                // console.log(this)
+                let that = this;
+                that.selfContent = msg;
+            })
+        }
+    });
+
+    var vm = new Vue({
+        el: "#root",
+    })
+</script>
+</body>
+</html>

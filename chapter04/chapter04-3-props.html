@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 参数校验</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <child content="Hello"></child>
+    <child :content="1"></child>
+</div>
+
+<script>
+
+    Vue.component('child', {
+        // props:['content'],
+        props: {
+            content: {
+                type: String,
+                required: false,
+                default: 'Hello World'
+            }
+        },
+        template: '<div>{{content}}</div>'
+    })
+
+    var vm = new Vue({
+        el: "#root",
+        data: {}
+    })
+</script>
+</body>
+</html>
