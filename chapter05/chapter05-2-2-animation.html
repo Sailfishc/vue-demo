@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue CSS 动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!--animation.css 库-->
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!--注意事项：-->
+<!--1. 必须引入css库，使用自定义class使用animation-->
+<!--2. 必须包含animcated的class属性-->
+
+<div id="root">
+    <!--如果不指定name的话默认前缀是v-->
+    <transition name="fade"
+    enter-active-class="animated tada"
+    leave-active-class="animated tada"
+    >
+        <div v-if="show">
+            <h1>Hello World</h1>
+        </div>
+    </transition>
+
+    <button @click="show = !show">
+        toggle
+    </button>
+
+</div>
+<script>
+
+    var vm = new Vue({
+        el: '#root',
+        methods: {
+            submitHandler: function () {
+
+            }
+        },
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>

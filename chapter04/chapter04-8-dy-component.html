@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue动态组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<!--实现一个toggle的功能-->
+<div id="root">
+    <!--实现方法一：-->
+    <!--<child-one v-if="type === 'child-one'"></child-one>-->
+    <!--<child-two v-if="type === 'child-two'"></child-two>-->
+
+    <!--动态组件：-->
+    <component :is="type"></component>
+    <button @click="submitHandler"> 提交</button>
+</div>
+
+<script>
+
+    // v-once指令可以显著的提高一些静态内容的展示效率
+
+    Vue.component('child-one', {
+        // template: '<div>Child-one</div>'
+        template: '<div v-once>Child-one</div>'
+    });
+
+
+    Vue.component('child-two', {
+        // template: '<div>Child-two</div>'
+        template: '<div v-once>Child-two</div>'
+    });
+
+
+    var vm = new Vue({
+        el: '#root',
+        methods: {
+            submitHandler: function () {
+                // alert('change')
+                return this.type = (this.type === 'child-one' ? 'child-two' : 'child-one')
+            }
+        },
+        data: {
+            type: 'child-one'
+        }
+    })
+</script>
+</body>
+</html>

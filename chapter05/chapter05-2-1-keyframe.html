@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue CSS 动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+        /*.fade-leave-active, */
+        .fade-enter-active {
+            transform-origin: left center;
+            animation: bounce-in 1s;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+
+            }
+            50% {
+                transform: scale(1.5);
+
+            }
+            100% {
+                transform: scale(1);
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+<!--transition组件：在下列情形中，可以给任何元素和组件添加进入/离开过渡-->
+<!--条件渲染 (使用 v-if)-->
+<!--条件展示 (使用 v-show)-->
+<!--动态组件-->
+<!--组件根节点-->
+
+<div id="root">
+    <!--如果不指定name的话默认前缀是v-->
+    <transition name="fade">
+        <div v-if="show">
+            <h1>Hello World</h1>
+        </div>
+    </transition>
+
+    <button @click="show = !show">
+        toggle
+    </button>
+
+</div>
+<script>
+
+    var vm = new Vue({
+        el: '#root',
+        methods: {
+            submitHandler: function () {
+
+            }
+        },
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>

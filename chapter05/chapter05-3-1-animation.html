@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue CSS 动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!--animation.css 库-->
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+
+    <style>
+        /*动画分类：*/
+        /*1、@keyframe 动画,animation.css 属于keyframe动画  */
+        /*2、transtion动画，过度动画*/
+
+        /*可以同时使用两种动画，在同时使用两种动画的时候需要注意的是：*/
+        /*1、以哪个动画时间为准，需要在transtion标签中加入type="xxx"*/
+
+        /*触发第一进入或者刷新进入后显示动画*/
+        /*transition标签中加入*/
+        /*1. appear*/
+        /*2. appear-active-class*/
+
+         /*TODO appear没生效*/
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opactity 3s;
+        }
+
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="root">
+    <!--如果不指定name的话默认前缀是v-->
+    <transition name="fade"
+                type="transition"
+                appear
+                enter-active-class="animated tada fade-enter-active"
+                leave-active-class="animated tada fade-leave-active"
+                appear-active-class="animated tada"
+    >
+        <div v-if="show">
+            <h1>Hello World</h1>
+        </div>
+    </transition>
+
+    <button @click="show = !show">
+        toggle
+    </button>
+
+</div>
+<script>
+
+    var vm = new Vue({
+        el: '#root',
+        methods: {
+            submitHandler: function () {
+
+            }
+        },
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>

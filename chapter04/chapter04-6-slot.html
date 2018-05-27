@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <child content="sailfish">
+        <p class="header" slot="header">Sailfish</p>
+        <p class="footer" slot="footer">Footer</p>
+    </child>
+</div>
+
+<script>
+
+    // template不是  '', 而是  ``
+
+    Vue.component('child', {
+        //插槽没有props属性
+        // props: ['content'],
+        // template:`<div>{{content}}</div>`
+        // 有name的slot叫做具名插槽
+        template: `<div>
+        <slot name="header"></slot>
+        <div>slot.......</div>
+        <slot name="footer"></slot>
+</div>`
+    });
+
+    var vm = new Vue({
+        el: "#root",
+    })
+</script>
+</body>
+</html>

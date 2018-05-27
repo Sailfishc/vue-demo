@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Velocity 动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/velocity/2.0.2/velocity.js"></script>
+
+</head>
+<body>
+
+<div id="root">
+    <!--如果不指定name的话默认前缀是v-->
+    <transition name="fade"
+                @before-enter="handlerBeforeEnter"
+                @enter="handlerEnter"
+                @after-enter="handlerAfterEnter"
+    >
+        <div v-if="show">
+            <h1>Hello World</h1>
+        </div>
+    </transition>
+
+    <button @click="show = !show">
+        toggle
+    </button>
+
+</div>
+<script>
+
+    var vm = new Vue({
+        el: '#root',
+        methods: {
+            handlerBeforeEnter: function (el) {
+                console.log("before ")
+                el.style.opacity = 0;
+            },
+            handlerEnter: function (el, done) {
+                console.log("enter..")
+                // setTimeout(() => {
+                //     el.style.color = 'green';
+                // }, 2000)
+                //
+                // setTimeout(() => {
+                //     done();
+                // }, 2000);
+
+                // 使用Velocity.js
+                Velocity(el, {
+                    opacity: 1
+                }, {
+                    duration: 1000,
+                    complete: done
+                })
+            },
+            handlerAfterEnter: function (el) {
+                console.log("after")
+                el.style.color = 'black'
+            }
+
+        },
+        data: {
+            show: true
+        },
+    })
+</script>
+</body>
+</html>

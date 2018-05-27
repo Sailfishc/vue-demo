@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 作用域插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!--@ 代表了 v-on-->
+<!--: 代表了 v-bind-->
+
+<div id="root">
+    <child>
+        <template slot-scope="props">
+            <h1>{{props.item}}</h1>
+        </template>
+    </child>
+</div>
+
+<script>
+
+    // 使用场景：
+    // 1、子组件做循环或者某一部分需要外部传进来的时候
+    // 2、子组件必须使用<template>
+    // 3、template中必须使用slot-scope标签
+
+    // template不是  '', 而是  ``
+
+    Vue.component('child', {
+        data: function () {
+            return {
+                list: [1, 2, 3, 4]
+            }
+        },
+        template: `
+        <div>
+        <ul>
+        <slot v-for="item of list"
+        :item=item></slot>
+</ul>
+</div>`
+    });
+
+    var vm = new Vue({
+        el: "#root",
+    })
+</script>
+</body>
+</html>
